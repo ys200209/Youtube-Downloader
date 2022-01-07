@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="vuswlq_play">
+        <item>다운로드</item>
+        <item>삭제하기</item>
+    </string-array>
+</resources>

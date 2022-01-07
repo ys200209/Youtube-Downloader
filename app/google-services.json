@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "121711029323",
+    "project_id": "extraction-3c7bb",
+    "storage_bucket": "extraction-3c7bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121711029323:android:0f0a71b66cc5bb11e331ce",
+        "android_client_info": {
+          "package_name": "com.myDownload.example"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121711029323-2dg4o3g4flhki9ojmjnjfbt6nogb93a4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnIGxxy_uxgUeoZ7hg1KKqiR61OQmgMYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121711029323-2dg4o3g4flhki9ojmjnjfbt6nogb93a4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8256124272423723~2878118007"
+    }
+  ],
+  "configuration_version": "1"
+}

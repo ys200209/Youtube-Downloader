@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MP3/Video 추출</string>
+
+    <string name="btn_streaming_example">Streaming Example</string>
+    <string name="btn_downloading_example">Downloading Example</string>
+    <string name="btn_command_example">Custom Command Example</string>
+    <string name="btn_update">Update Youtube-DL</string>
+    <string name="btn_start_stream">Start Stream</string>
+    <string name="btn_start_download">Start Download</string>
+    <string name="url_hint">이곳에 주소를 넣어주세요</string>
+    <string name="btn_run_command">Run Command</string>
+    <string name="command_hint">enter command here</string>
+    <string name="url_error">주소가 입력되지 않았습니다</string>
+    <string name="command_error">enter a valid command</string>
+    <string name="start">Do the thing</string>
+    <string name="example_command">Example command: --extract-audio --audio-format mp3 -o /sdcard/Download/youtubedl-android/%(title)s.%(ext)s https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
+    <string name="download_start">Starting Download</string>
+    <string name="download_complete">Download Complete</string>
+    <string name="download_failed">Download Failed</string>
+    <string name="command_start">Starting Command</string>
+    <string name="command_complete">Command Complete</string>
+    <string name="command_failed">Command Failed</string>
+</resources>

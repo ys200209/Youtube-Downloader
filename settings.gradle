@@ -1,0 +1,2 @@
+include ':common', ':app', ':library', ':ffmpeg'
+include ':app', ':lib', ':FFmpegAndroid64'
