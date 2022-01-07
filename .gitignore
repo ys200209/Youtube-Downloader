@@ -1,5 +1,6 @@
 *.iml
 /local.properties
+/.idea/
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
@@ -11,8 +12,8 @@
 /build
 /captures
 .externalNativeBuild+
-/.idea/
-/release_key/
+
+release_key/key.jks
 
 # Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio
