@@ -11,8 +11,8 @@
 /build
 /captures
 .externalNativeBuild+
-.idea
-release_key/
+/.idea/
+/release_key/
 
 # Created by https://www.toptal.com/developers/gitignore/api/android,androidstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=android,androidstudio
