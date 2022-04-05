@@ -18,6 +18,10 @@ library
 ffmpeg
 build.gradle
 app/build.gradle
+app/src/main/AndroidManifest.xml
+*Manifest.xml
+common/build.gradle
+common/src/main/AndroidManifest.xml
 
 release_key/key.jks
 

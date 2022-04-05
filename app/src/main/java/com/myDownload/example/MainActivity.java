@@ -1,5 +1,3 @@
-package com.myDownload.example;
-
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
