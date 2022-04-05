@@ -172,19 +172,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-
-//        if(mAdView != null) {
-//            mAdView.pause();
-//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-//        if(mAdView != null) {
-//            mAdView.resume();
-//        }
     }
 
     @Override
@@ -193,9 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(mDbOpenHelper.isOpened()) {
             mDbOpenHelper.close();
         }
-//        if(mAdView != null) {
-//            mAdView.destroy();
-//        }
     }
 
 }
