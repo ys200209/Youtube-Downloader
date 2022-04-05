@@ -23,6 +23,18 @@ release_key/key.jks
 .gradle/
 build/
 
+/app/src/main/java/com/myDownload/example/App.java
+/app/src/main/java/com/myDownload/example/CompletedDownloadActivity.java
+/app/src/main/java/com/myDownload/example/DbOpenHelper.java
+/app/src/main/java/com/myDownload/example/DownloadingExampleActivity.java
+/app/src/main/java/com/myDownload/example/RegisterRequest.java
+/app/src/main/java/com/myDownload/example/SearchUrlActivity.java
+/app/src/main/java/com/myDownload/example/SplashScreen.java
+
+/app/src/main/java/com/myDownload/example/CustomAlertDialog.java
+/app/src/main/java/com/myDownload/example/CustomView.java
+/app/src/main/java/com/myDownload/example/MyDownloadService.java
+
 # Local configuration file (sdk path, etc)
 local.properties
 
