@@ -11,7 +11,13 @@
 .DS_Store
 /build
 /captures
-.externalNativeBuild+
+.externalNativeBuild
+
+testREAD.txt
+library
+ffmpeg
+build.gradle
+app/build.gradle
 
 release_key/key.jks
 
