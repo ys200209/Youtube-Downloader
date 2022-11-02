@@ -1,5 +1,6 @@
 # Install
 [Youtube-Downloader](https://m.onestore.co.kr/mobilepoc/apps/appsDetail.omp?prodId=0000755868)
+버그 수정하고 앱 공개 예정
 
 # youtubedl-android
 Android library wrapper for [youtube-dl](https://github.com/rg3/youtube-dl) executable
