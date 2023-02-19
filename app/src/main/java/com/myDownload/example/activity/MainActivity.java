@@ -1,4 +1,4 @@
-package com.myDownload.example;
+package com.myDownload.example.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -16,12 +16,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import com.myDownload.example.log.LogFactory;
-import com.myDownload.example.log.LogService;
+import com.myDownload.example.repository.DbOpenHelper;
+import com.myDownload.example.R;
+import com.myDownload.example.utils.log.LogService;
 import com.yausername.youtubedl_android.YoutubeDL;
 import com.yausername.youtubedl_android.YoutubeDL.UpdateStatus;
 import com.yausername.youtubedl_android.YoutubeDLException;
-import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -59,31 +59,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void runThreadUpdateLibraryVersion() {
+        String location = "MainActivity#runThreadUpdateLibraryVersion()";
+
         try {
-            saveLogMessage("MainActivity.runThreadUpdateLibraryVersion()", "라이브러리 업데이트 테스트1");
             UpdateStatus updateStatus = YoutubeDL.getInstance().checkLatelyUpdateYoutubeDL(getApplication());
             if (updateStatus.isAlreadyLatelyUpdate()) {
                 return;
             }
 
-            MainActivity.this.runOnUiThread(() ->
-                    Toast.makeText(MainActivity.this, "라이브러리 업데이트 중...", Toast.LENGTH_SHORT).show());
-
+            showToastMessage("라이브러리 업데이트 중...");
             YoutubeDL.getInstance().updateYoutubeDL(getApplication());
+            showToastMessage("라이브러리 업데이트 완료");
 
-            MainActivity.this.runOnUiThread(() ->
-                    Toast.makeText(MainActivity.this, "라이브러리 업데이트 완료", Toast.LENGTH_SHORT).show());
-
-            saveLogMessage("MainActivity.runThreadUpdateLibraryVersion()", "라이브러리 업데이트 완료");
-        } catch (YoutubeDLException e) {
-            MainActivity.this.runOnUiThread(() ->
-                    Toast.makeText(MainActivity.this, "라이브러리 업데이트 실패", Toast.LENGTH_SHORT).show());
-            saveLogMessage("MainActivity.runThreadUpdateLibraryVersion()", "라이브러리 업데이트 실패");
+            saveLogMessage(location, "라이브러리 업데이트 완료", null);
+        } catch (YoutubeDLException ex) {
+            showToastMessage("라이브러리 업데이트 실패");
+            saveLogMessage(location, null, ex);
         }
     }
 
-    private static void saveLogMessage(String location, String message) {
-        LogService.getInstance().save(LogFactory.generate(new Date(), location, message));
+    private void showToastMessage(String message) {
+        MainActivity.this.runOnUiThread(() ->
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show());
+    }
+
+    private static void saveLogMessage(String location, String message, Exception ex) {
+        LogService.getInstance().saveLogMessage(location, message, ex);
     }
 
     private void initListeners() {
