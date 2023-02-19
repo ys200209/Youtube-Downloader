@@ -1,3 +1,5 @@
+package com.myDownload.example;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
@@ -11,9 +13,15 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import com.myDownload.example.log.LogFactory;
+import com.myDownload.example.log.LogService;
+import com.yausername.youtubedl_android.YoutubeDL;
+import com.yausername.youtubedl_android.YoutubeDL.UpdateStatus;
+import com.yausername.youtubedl_android.YoutubeDLException;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,14 +41,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        updateLibraryVersion();
+
         mDbOpenHelper = new DbOpenHelper(MainActivity.this);
         mDbOpenHelper.openW();
         mDbOpenHelper.create();
-        // mDbOpenHelper.update();
+//        Log.d("CompleteDownloadActivity.java", "downloadWaitingList.size() ? " + CompletedDownloadActivity.downloadWaitingList.size());
+//        if (CompletedDownloadActivity.downloadWaitingList.size() == 0) mDbOpenHelper.update(); // 다운중이 아닐때만 기록 삭제
         mDbOpenHelper.close();
 
         initViews();
         initListeners();
+    }
+
+    private void updateLibraryVersion() {
+        new Thread(this::runThreadUpdateLibraryVersion).start();
+    }
+
+    private void runThreadUpdateLibraryVersion() {
+        try {
+            saveLogMessage("MainActivity.runThreadUpdateLibraryVersion()", "라이브러리 업데이트 테스트1");
+            UpdateStatus updateStatus = YoutubeDL.getInstance().checkLatelyUpdateYoutubeDL(getApplication());
+            if (updateStatus.isAlreadyLatelyUpdate()) {
+                return;
+            }
+
+            MainActivity.this.runOnUiThread(() ->
+                    Toast.makeText(MainActivity.this, "라이브러리 업데이트 중...", Toast.LENGTH_SHORT).show());
+
+            YoutubeDL.getInstance().updateYoutubeDL(getApplication());
+
+            MainActivity.this.runOnUiThread(() ->
+                    Toast.makeText(MainActivity.this, "라이브러리 업데이트 완료", Toast.LENGTH_SHORT).show());
+
+            saveLogMessage("MainActivity.runThreadUpdateLibraryVersion()", "라이브러리 업데이트 완료");
+        } catch (YoutubeDLException e) {
+            MainActivity.this.runOnUiThread(() ->
+                    Toast.makeText(MainActivity.this, "라이브러리 업데이트 실패", Toast.LENGTH_SHORT).show());
+            saveLogMessage("MainActivity.runThreadUpdateLibraryVersion()", "라이브러리 업데이트 실패");
+        }
+    }
+
+    private static void saveLogMessage(String location, String message) {
+        LogService.getInstance().save(LogFactory.generate(new Date(), location, message));
     }
 
     private void initListeners() {
@@ -65,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent i = new Intent(MainActivity.this, CompletedDownloadActivity.class);
                         i.putExtra("downloadRequest", true);
                         startActivity(i);
-                        break;
                     }
+                    break;
                 }
                 case R.id.btn_downloading_example: { // 다운로드
                     //Intent i = new Intent(MainActivity.this, DownloadingExampleActivity.class);
@@ -100,17 +143,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("권한 설정")
                         .setMessage("파일을 내부 저장소에 저장하기 위해\n접근 권한이 필요합니다.")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                    requestPermissions(params, REQUEST_PERMISSION);
-                                }
+                        .setPositiveButton("확인", (dialogInterface, i) -> {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                requestPermissions(params, REQUEST_PERMISSION);
                             }
                         })
                         .setCancelable(false)
                         .show();
-
                 return false;
             } else {
                 return true;
@@ -134,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         checkPermission = !checkPermission;
                     }
                 } else {
-                    //Toast.makeText(this, "권한이 거절되었습니다.", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "권한이 거절되었습니다.", Toast.LENGTH_SHORT).show();
                     AlertDialog.Builder localBuilder = new AlertDialog.Builder(this);
                     localBuilder.setTitle("권한 설정")
                             .setMessage("원활한 다운로드를 위해 \n권한 -> 저장공간 -> 허용 해주세요.")
@@ -150,10 +189,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                         startActivity(intent);
                                     }
                                 }})
-                            .setNegativeButton("거절", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
-
-                                }})
+                            .setNegativeButton("거절", (paramAnonymousDialogInterface, paramAnonymousInt) -> {
+//                                Exception: Toast.makeText(MainActivity.this, "권한을 거절하였습니다.", Toast.LENGTH_SHORT).show();
+                            })
                             .setCancelable(false)
                             .create()
                             .show();
@@ -184,5 +222,4 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mDbOpenHelper.close();
         }
     }
-
 }
