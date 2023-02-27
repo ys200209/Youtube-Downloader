@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.btn_downloading_example: { // 다운로드
                     //Intent i = new Intent(MainActivity.this, DownloadingExampleActivity.class);
                     Intent i = new Intent(MainActivity.this, SearchUrlActivity.class);
-                    startActivity(i);
+                    startActivity(i); // portraitMode 추가
                     break;
                 /*case R.id.search_button: {
                     Intent i = new Intent(MainActivity.this, SearchUrlActivity.class);
